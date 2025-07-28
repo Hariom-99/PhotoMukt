@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PhotoMukt - Background Remover</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    body {
+      background-color: #d3d5fd;
+      color: #0b0b0d;
+    }
+
+    .sticky-header {
+      background-color: #474a56 !important;
+    }
+
+    .nav-logo {
+      font-family: 'Pacifico', cursive;
+      font-size: 28px;
+      color: #d3d5fd;
+    }
+
+    nav a {
+      color: #d3d5fd !important;
+    }
+
+    nav a:hover {
+      color: #929aab !important;
+    }
+
+    form {
+      background-color: #ffffff;
+      border: 2px solid #929aab;
+    }
+
+    .btn-primary {
+      background-color: #474a56;
+      border-color: #474a56;
+    }
+
+    .btn-primary:hover {
+      background-color: #0b0b0d;
+      border-color: #0b0b0d;
+    }
+
+    footer {
+      background-color: #474a56 !important;
+      color: #d3d5fd;
+    }
+
+    .blob {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="sticky-header bg-dark text-white p-3 d-flex justify-content-between align-items-center">
+    <div class="nav-logo">PhotoMukt</div>
+    <nav>
+      <a href="/" class="me-3">Home</a>
+    </nav>
+  </header>
+
+  <!-- Upload Form -->
+  <div class="container py-5 mt-5 mb-5">
+    <form action="/upload" method="post" enctype="multipart/form-data" class="p-5 rounded shadow">
+      <h1 class="mb-4 text-center">Upload Your Image</h1>
+      <input type="file" name="image" accept="image/*" class="form-control mb-3" required />
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Remove Background</button>
+      </div>
+    </form>
+  </div>
+
+  <footer class="text-center py-3 w-100 position-fixed bottom-0">
+    &copy; 2025 PhotoMukt. All rights reserved.
+  </footer>
+
+</body>
+</html>
+```
