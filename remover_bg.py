@@ -16,4 +16,4 @@ output_data = remove(input_data)
 with open(output_path, 'wb') as o:
     o.write(output_data)
 
-print(f" Background removed and saved as: {output_path}")
+print(f" Background removed ")
