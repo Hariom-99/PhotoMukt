@@ -20,8 +20,8 @@ app.post('/upload', upload.single('image'), (req, res) => {
 
   const scriptPath = path.join(__dirname, 'remover_bg.py');
 
-  // ✅ Cross-platform python command
-  const pythonCmd = process.platform === 'win32' ? 'py' : 'python3';
+  // Use python3 for Render’s Linux environment
+  const pythonCmd = 'python3';
 
   const command = `"${pythonCmd}" "${scriptPath}" "${inputPath}" "${outputPath}"`;
 
@@ -35,10 +35,8 @@ app.post('/upload', upload.single('image'), (req, res) => {
     console.log('Stdout:', stdout);
     if (stderr) console.error('Stderr:', stderr);
 
-    // Redirect to results page
     res.redirect(`/result.html?file=${outputFilename}`);
 
-    // Cleanup after 2 minutes
     setTimeout(() => {
       try {
         fs.unlinkSync(inputPath);
@@ -50,4 +48,6 @@ app.post('/upload', upload.single('image'), (req, res) => {
   });
 });
 
-app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+// Use Render-provided PORT
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

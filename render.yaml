@@ -1,12 +1,9 @@
 services:
   - type: web
-    name: bg-remover-app
-    runtime: node
+    name: background-remover
+    env: node
     buildCommand: |
+      apt-get update && apt-get install -y python3 python3-pip
+      pip3 install -r requirements.txt
       npm install
-      pip install -r requirements.txt
     startCommand: node server.js
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.4
-    plan: free
