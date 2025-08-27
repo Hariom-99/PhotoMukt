@@ -1,2 +1,2 @@
 rembg
-Pillow
+onnxruntime

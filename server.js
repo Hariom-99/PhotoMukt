@@ -14,22 +14,26 @@ app.get('/', (req, res) => {
 });
 
 app.post('/upload', upload.single('image'), (req, res) => {
-  const inputPath = req.file.path;
+  // Use absolute paths
+  const inputPath = path.join(__dirname, req.file.path);
   const outputFilename = req.file.filename + '_output.png';
   const outputPath = path.join(__dirname, 'public', outputFilename);
 
   const scriptPath = path.join(__dirname, 'remover_bg.py');
 
-  // Use python3 for Render’s Linux environment
+  // Use python3 for Render (Linux)
   const pythonCmd = 'python3';
 
-  const command = `"${pythonCmd}" "${scriptPath}" "${inputPath}" "${outputPath}"`;
+  // Build command (no quotes needed)
+  const command = `${pythonCmd} ${scriptPath} ${inputPath} ${outputPath}`;
 
   exec(command, (err, stdout, stderr) => {
     if (err) {
       console.error('Error:', err);
       console.error('Stderr:', stderr);
-      return res.status(500).send('<h2 style="color:red;">Background removal failed.</h2>');
+      return res
+        .status(500)
+        .send('<h2 style="color:red;">Background removal failed.</h2>');
     }
 
     console.log('Stdout:', stdout);
@@ -37,6 +41,7 @@ app.post('/upload', upload.single('image'), (req, res) => {
 
     res.redirect(`/result.html?file=${outputFilename}`);
 
+    // Cleanup after 2 minutes
     setTimeout(() => {
       try {
         fs.unlinkSync(inputPath);
@@ -50,4 +55,6 @@ app.post('/upload', upload.single('image'), (req, res) => {
 
 // Use Render-provided PORT
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`Server running on http://localhost:${PORT}`)
+);
