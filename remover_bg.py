@@ -21,7 +21,8 @@ def main():
         with open(output_path, "wb") as o:
             o.write(output_data)
 
-        print("✅ Background removed successfully")
+        # Success message (plain text, safe for servers)
+        print(f"Background removed successfully. Output saved at: {output_path}")
 
     except FileNotFoundError:
         print(f"Error: File not found -> {input_path}", file=sys.stderr)
