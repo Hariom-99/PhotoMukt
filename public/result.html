@@ -41,20 +41,21 @@
 
   <!-- Script to Load Image -->
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const file = params.get('file');
+  const params = new URLSearchParams(window.location.search);
+  const file = params.get('file');
 
-    if (file) {
-      const imagePath = `/uploads/${file}`; // ✅ Ensure served from Express static
-      document.getElementById('resultImage').src = imagePath;
-      document.getElementById('downloadBtn').href = imagePath;
-    } else {
-      document.querySelector('.result-container').innerHTML = `
-        <h2 class="text-danger">⚠ No image found!</h2>
-        <a href="/" class="btn btn-secondary mt-3">Go back</a>
-      `;
-    }
-  </script>
+  if (file) {
+    const imagePath = `/results/${file}`; // ✅ Corrected path
+    document.getElementById('resultImage').src = imagePath;
+    document.getElementById('downloadBtn').href = imagePath;
+  } else {
+    document.querySelector('.result-container').innerHTML = `
+      <h2 class="text-danger">⚠ No image found!</h2>
+      <a href="/" class="btn btn-secondary mt-3">Go back</a>
+    `;
+  }
+</script>
+
 </body>
 
 </html>

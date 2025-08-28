@@ -1,4 +1,5 @@
 import sys
+import os
 from rembg import remove
 
 def main():
@@ -10,6 +11,11 @@ def main():
     output_path = sys.argv[2]
 
     try:
+        # Validate input file
+        if not os.path.exists(input_path):
+            print(f"Error: File not found -> {input_path}", file=sys.stderr)
+            sys.exit(1)
+
         # Read input image
         with open(input_path, "rb") as i:
             input_data = i.read()
@@ -17,16 +23,18 @@ def main():
         # Remove background
         output_data = remove(input_data)
 
+        # Ensure output directory exists
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
         # Save output image
         with open(output_path, "wb") as o:
             o.write(output_data)
 
-        # Success message (plain text, safe for servers)
-        print(f"Background removed successfully. Output saved at: {output_path}")
+        # Success (stdout only)
+        print(f"{output_path}")
 
-    except FileNotFoundError:
-        print(f"Error: File not found -> {input_path}", file=sys.stderr)
-        sys.exit(1)
+        sys.exit(0)
+
     except Exception as e:
         print(f"Python error: {str(e)}", file=sys.stderr)
         sys.exit(1)
